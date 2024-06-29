@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb:0,0, 0;
+  --background-end-rgb: 0,0, 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 0,0, 0;
+    --background-end-rgb: 0,0, 0;
+    
+  }
+}
+
+body {
+  color: white;
+  /* background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb)); */
+    
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 0;  /* Remove scrollbar space */
+  background: black;  /* Optional: just make scrollbar invisible */
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  scale:0;
+  transition: opacity 400ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open{
+  scale:1;
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close{
+  opacity: 0;
+  scale: 0,
+}
+
+.MuiInput-input {
+  text-align: center;
+  outline: 0;
+}
+
+.custom-connect-btn {
+  button {
+    color: white !important;
+    background-color: rgba(248, 226, 86, 0.2) !important;
+    border: 1px solid rgba(248, 226, 86, 1) !important;
+    border-radius: 30px !important;
+    font-family: __chirp_713ebb, __chirp_Fallback_713ebb !important;
+  }
+}
