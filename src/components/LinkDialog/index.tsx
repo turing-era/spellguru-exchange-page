@@ -1,14 +1,16 @@
 import React, { useEffect } from "react"
 import Image from "next/image"
 import { Button, Modal, Input } from "@mui/material"
+import { UserInfo } from "@/interface/apiInterface/userinfo"
 
 export const LinkDialog: React.FC<{
   address: string
   open: boolean
+  userInfo: UserInfo | undefined
   onClose: () => void
   onConfirm: (value: string) => void
 }>
-  = ({ address, open, onClose, onConfirm }) => {
+  = ({ address, open, userInfo, onClose, onConfirm }) => {
     const [value, setValue] = React.useState(address)
     const title = 'Link SpellGuru Wallet';
     const message = 'After the link is successful, it cannot be modified. Please handle it carefully.';
@@ -47,7 +49,7 @@ export const LinkDialog: React.FC<{
           <Button
             className="w-[86.4vw] h-[48px] md:h-[54px] md:w-[604px] font-bold"
             variant="contained"
-            disabled={!!address}
+            disabled={!!address || !userInfo}
             onClick={() => onConfirm(value)}
           >Confirm</Button>
         </div>

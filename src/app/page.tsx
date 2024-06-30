@@ -30,7 +30,7 @@ export default function Home() {
   const [messageDialogType, setMessageDialogType] = useState('success')
   const [exchangeBtnDisabled, setExchangeBtnDisabled] = useState(false)
 
-  const { userInfo, rewardInfo, updateRewardInfo } = useUserInfoContext()
+  const { userInfo, rewardInfo, updateUserInfo, updateRewardInfo } = useUserInfoContext()
 
   const isSmScreen = useMediaQuery('(min-width:640px)')
   const linkButtonStyle = isSmScreen
@@ -66,6 +66,7 @@ export default function Home() {
       const res = await exchangeReward(exchangeType)
       if (res?.success) {
         updateRewardInfo()
+        updateUserInfo()
         setMessageDialogType('success')
       } else {
         setMessageDialogType('error')
@@ -126,7 +127,7 @@ export default function Home() {
             <span className="leading-[30px] md:leading-[26px] pr-[10px]">Connect your SpellGuru wallet address</span>
             <Button style={linkButtonStyle} variant="contained" onClick={() => {setIsLinkDialogOpened(true)}}>Link</Button>
           </p>                       
-          <p className={contentDefaultClassNames.join(' ')}>If you have not yet created a SpellGuru wallet, please register an account and create one at<Link href="https://alienx.spellguru.ai">alienx.spellguru.ai</Link>.</p>
+          <p className={contentDefaultClassNames.join(' ')}>If you have not yet created a SpellGuru wallet, please register an account and create one at<Link href="https://alienx.spellguru.ai" target="_blank">alienx.spellguru.ai</Link>.</p>
           <p className={contentDefaultClassNames.join(' ')}>The rewards and benefits you earned in the Genesis event are listed below for you to review and exchange:</p>
         </div>
         <div>
@@ -135,14 +136,14 @@ export default function Home() {
             title={`GAI ${rewardInfo.gai} + Battle ${rewardInfo.pk_times} `}
             value={(userInfo?.dynamic?.sgai || 0) / 100}
             exchangeFn={() => {handleExchangeReward(ExchangeType.TYPE_VSGAI)}}
-            disabled={exchangeBtnDisabled}>
+            disabled={exchangeBtnDisabled || !userInfo?.dynamic?.sgai}>
           </ExchangeCard>
           <ExchangeCard
             type="SpellSlot"
             title={`Pet phrase ${rewardInfo.phrases_slot_total} + Strategy ${rewardInfo.experience_slot_total}`}
             value={userInfo?.dynamic?.sgslot || 0}
             exchangeFn={() => {handleExchangeReward(ExchangeType.TYPE_SPELLSLOT)}}
-            disabled={exchangeBtnDisabled}>        
+            disabled={exchangeBtnDisabled || !userInfo?.dynamic?.sgslot}>        
           </ExchangeCard>
           <ExchangeCard
             type="S-AIX"

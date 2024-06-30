@@ -100,6 +100,8 @@ export const UserInfoProvider = ({
   useEffect(() => {
     if (userInfo) {
       updateRewardInfo()
+    } else {
+      setRewardInfo(defaultRewardInfo)
     }
   }, [userInfo])
 
