@@ -7,21 +7,6 @@ export const MessageDialog: React.FC<{
   type: 'success' | 'error'
   onClose: () => void}>
   = ({ open, type, onClose }) => {
-    const boxStyle = {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: '664px',
-      backgroundColor: '#1A1A1A',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: '70px 30px 40px',
-      outline: 0,
-      borderRadius: '12px',
-    };
-
     const title = type === 'success' ? 'Exchange successful' : 'Exchange failed';
     const message = type === 'success'
       ? 'Exchange successful. Please go to the product to check.\n Note that L3/L4 level is required to use it.'
@@ -54,7 +39,7 @@ export const MessageDialog: React.FC<{
           />
           <h1 className="text-[24px] leading-[28px] font-extrabold mb-[13px]">{title}</h1>
           <p className="text-center text-[16px] font-normal leading-[19px] mb-[27px] md:mb-[44px] whitespace-pre-wrap">{message}</p>
-          <Button className="w-[86.4vw] h-[48px] md:h-[54px] md:w-[604px] font-bold" variant="contained">Back</Button>
+          <Button className="w-[86.4vw] h-[48px] md:h-[54px] md:w-[604px] font-bold" variant="contained" onClick={onClose}>Back</Button>
         </div>
       </Modal>
     )

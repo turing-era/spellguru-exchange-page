@@ -110,7 +110,7 @@ export default function RootLayout({
                 height: '100vh',
               }}
             >
-              <LoadingSpinner></LoadingSpinner>
+              {/* <LoadingSpinner></LoadingSpinner> */}
             </div>
           )}
         </div>

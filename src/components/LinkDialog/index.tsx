@@ -1,17 +1,22 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Image from "next/image"
 import { Button, Modal, Input } from "@mui/material"
 
 export const LinkDialog: React.FC<{
+  address: string
   open: boolean
   onClose: () => void
   onConfirm: (value: string) => void
 }>
-  = ({ open, onClose, onConfirm }) => {
-    const [value, setValue] = React.useState('')
+  = ({ address, open, onClose, onConfirm }) => {
+    const [value, setValue] = React.useState(address)
     const title = 'Link SpellGuru Wallet';
     const message = 'After the link is successful, it cannot be modified. Please handle it carefully.';
-    
+
+    useEffect(() => {
+      setValue(address)
+    }, [address])
+
     return (
       <Modal
         open={open}
@@ -37,8 +42,14 @@ export const LinkDialog: React.FC<{
             value={value} required placeholder='Please input'
             onChange={(e) => setValue(e.target.value)}
             disableUnderline={true}
+            disabled={!!address}
             />
-          <Button className="w-[86.4vw] h-[48px] md:h-[54px] md:w-[604px] font-bold" variant="contained">Confirm</Button>
+          <Button
+            className="w-[86.4vw] h-[48px] md:h-[54px] md:w-[604px] font-bold"
+            variant="contained"
+            disabled={!!address}
+            onClick={() => onConfirm(value)}
+          >Confirm</Button>
         </div>
       </Modal>
     )

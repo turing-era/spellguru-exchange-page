@@ -1,4 +1,5 @@
-import { getUserInfo } from '@/api/userApi'
+import { getUserInfo, previewReward } from '@/api/userApi'
+import { PreviewSpellguruRewardRsp } from '@/interface/apiInterface/exchange'
 import { UserInfo } from '@/interface/apiInterface/userinfo'
 import { getLocalStorage } from '@/utils'
 import { AUTH_TOKEN_STORAGE_KET } from '@/utils/constants'
@@ -8,14 +9,26 @@ type UserInfoProviderType = {
   hasToken: boolean
   userInfo: UserInfo | undefined
   loginWithUserInfo: boolean
+  rewardInfo: PreviewSpellguruRewardRsp
   updateUserInfo: () => void
+  updateRewardInfo: () => void
+}
+
+const defaultRewardInfo: PreviewSpellguruRewardRsp = {
+  spellguru_address: '',
+  gai: 0,
+  pk_times: 0,
+  phrases_slot_total: 0,
+  experience_slot_total: 0,
 }
 
 const UserInfoContext = createContext<UserInfoProviderType>({
   hasToken: false,
   userInfo: undefined,
   loginWithUserInfo: false,
+  rewardInfo: defaultRewardInfo,
   updateUserInfo: () => {},
+  updateRewardInfo: () => {},
 })
 
 export const useUserInfoContext = () => useContext(UserInfoContext)
@@ -28,12 +41,23 @@ export const UserInfoProvider = ({
   const [hasToken, setHasToken] = useState(false)
   const [userInfo, setUserInfo] = useState<UserInfo>()
   const [loginWithUserInfo, setLoginWithUserInfo] = useState(false)
+  const [rewardInfo, setRewardInfo] = useState<PreviewSpellguruRewardRsp>(defaultRewardInfo)
+
   const updateUserInfo = async () => {
     try {
       const res = await getUserInfo()
       setUserInfo(res)
     } catch (e) {
       console.log('Login error', e)
+    }
+  }
+
+  const updateRewardInfo = async () => {
+    try {
+      const res = await previewReward()
+      res && setRewardInfo(res)
+    } catch (e) {
+      console.log('previewReward error', e)
     }
   }
 
@@ -73,9 +97,15 @@ export const UserInfoProvider = ({
     setLoginWithUserInfo(hasToken && !!userInfo)
   }, [hasToken, userInfo])
 
+  useEffect(() => {
+    if (userInfo) {
+      updateRewardInfo()
+    }
+  }, [userInfo])
+
   return (
     <UserInfoContext.Provider
-      value={{ hasToken, userInfo, loginWithUserInfo, updateUserInfo }}
+      value={{ hasToken, userInfo, rewardInfo, loginWithUserInfo, updateUserInfo, updateRewardInfo }}
     >
       {children}
     </UserInfoContext.Provider>
