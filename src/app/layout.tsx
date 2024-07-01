@@ -94,25 +94,11 @@ export default function RootLayout({
             overflowY: 'scroll',
           }}
         >
-          {isClientSide ? (
-            <MuiThemeProvider>
-              <UserInfoProvider>
-                <Web3Providers>{children}</Web3Providers>
-              </UserInfoProvider>
-            </MuiThemeProvider>
-          ) : (
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100vh',
-              }}
-            >
-              {/* <LoadingSpinner></LoadingSpinner> */}
-            </div>
-          )}
+          <MuiThemeProvider>
+            <UserInfoProvider>
+              <Web3Providers>{children}</Web3Providers>
+            </UserInfoProvider>
+          </MuiThemeProvider>
         </div>
         <Analytics></Analytics>
       </body>

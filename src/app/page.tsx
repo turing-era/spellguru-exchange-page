@@ -19,6 +19,7 @@ import { isAddress } from 'ethers'
 import { linkAddress, exchangeReward } from '@/api/userApi'
 import { ExchangeType } from '@/interface/apiInterface/exchange'
 import Link from 'next/link'
+import { NavBar } from '@/components/NavBar'
 
 const iconClassNames = ['mr-[16px]', 'text-[24px]', 'md:mr-[30px]', 'md:text-[25px]', 'cursor-pointer'];
 const contentDefaultClassNames = ['text-[16px]', 'leading-[19px]', 'md:text-[14px]', 'md:leading-[16px]', 'mb-[10px]', 'font-normal', 'text-[#cccccc]'];
@@ -85,40 +86,7 @@ export default function Home() {
         width: '100vw',
       }}
     >
-      <div
-        className="flex flex-row px-[20px] md:px-[50px] items-center justify-between h-[100px] w-[100vw]"
-      >
-        <div className="h-[25px] w-[22px] bg-[url('/logo_sm.png')] md:h-[33px] md:w-[184px] md:bg-[url('/logo.png')] bg-cover" title="SpellGuru">
-        </div>
-        <div style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <FaXTwitter
-            className={iconClassNames.join(' ')}
-            onClick={() => {
-              window.open('https://twitter.com/GuruSpell', '_blank')
-            }}
-          />
-          <FaDiscord
-            className={iconClassNames.join(' ')}
-            onClick={() => {
-              window.open('https://discord.com/invite/cDZVCyz8ws', '_blank')
-            }}
-          />
-          <SiGitbook
-            className={[...iconClassNames, 'md:mr-[44px]'].join(' ')}
-            onClick={() => {
-              window.open('https://gitbook.spellguru.ai/', '_blank')
-            }}
-          />
-          <div className={ userInfo ? "" : "custom-connect-btn"}>
-            <ConnectButton chainStatus="name" showBalance={isSmScreen}></ConnectButton>
-          </div>
-        </div>
-      </div>
+      <NavBar userInfo={userInfo} />
       <div className="w-[100vw] px-[20px] md:w-[700px] md:m-auto md:px-0">
         <div className="py-[30px]">
           <h1 className="text-[24px] leading-[30px] mb-[10px] font-extrabold">SpellBox rewards exchange</h1>

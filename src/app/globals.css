@@ -68,3 +68,32 @@ input {
     font-family: __chirp_713ebb, __chirp_Fallback_713ebb !important;
   }
 }
+.custom-connect-btn-sm {
+  button {
+    height: 36px;
+    padding-left: 16px;
+    padding-right: 16px;
+    color: white !important;
+    background-color: rgba(248, 226, 86, 0.2) !important;
+    border: 1px solid rgba(248, 226, 86, 1) !important;
+    border-radius: 30px !important;
+    font-family: __chirp_713ebb, __chirp_Fallback_713ebb !important;
+  }
+}
+.custom-connect-btn-userInfo-sm {
+  button {
+    div {
+      div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        div {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
