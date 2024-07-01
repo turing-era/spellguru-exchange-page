@@ -46,7 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/BOX.png" />
+        <link rel="icon" href="/favi.png" />
         <meta
           property="og:title"
           content="SpellGuru is a decentralized AI training data network"
