@@ -2,9 +2,14 @@ import React from "react"
 import Image from "next/image"
 import { Button, Modal } from "@mui/material"
 
+export enum MessageDialogType {
+  Success = 'success',
+  Error = 'error'
+}
+
 export const MessageDialog: React.FC<{
   open: boolean
-  type: 'success' | 'error'
+  type: MessageDialogType
   onClose: () => void}>
   = ({ open, type, onClose }) => {
     const title = type === 'success' ? 'Exchange successful' : 'Exchange failed';

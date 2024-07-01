@@ -13,7 +13,7 @@ import { useUserInfoContext } from '@/providers/userInfoProvider'
 import { ExchangeCard } from '@/components/ExchangeCard'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Button from '@mui/material/Button'
-import { MessageDialog } from '@/components/MessageDialog'
+import { MessageDialog, MessageDialogType } from '@/components/MessageDialog'
 import { LinkDialog } from '@/components/LinkDialog'
 import { isAddress } from 'ethers'
 import { linkAddress, exchangeReward } from '@/api/userApi'
@@ -27,7 +27,7 @@ export default function Home() {
   const [open, setOpen] = useState(true)
   const [isLinkDialogOpened, setIsLinkDialogOpened] = useState(false)
   const [isMessageDialogOpened, setIsMessageDialogOpened] = useState(false)
-  const [messageDialogType, setMessageDialogType] = useState('success')
+  const [messageDialogType, setMessageDialogType] = useState<MessageDialogType>(MessageDialogType.Success)
   const [exchangeBtnDisabled, setExchangeBtnDisabled] = useState(false)
 
   const { userInfo, rewardInfo, updateUserInfo, updateRewardInfo } = useUserInfoContext()
@@ -39,7 +39,7 @@ export default function Home() {
 
   useListenOnChainSwitch()
 
-  const handleLinkAddres = async (address) => {
+  const handleLinkAddres = async (address: string) => {
     if (!isAddress(address)) {
       toast.warn("Please enter a valid address.")
       return
@@ -67,13 +67,13 @@ export default function Home() {
       if (res?.success) {
         updateRewardInfo()
         updateUserInfo()
-        setMessageDialogType('success')
+        setMessageDialogType(MessageDialogType.Success)
       } else {
-        setMessageDialogType('error')
+        setMessageDialogType(MessageDialogType.Error)
       }
     } catch (error) {
       console.log('handleExchangeReward error', error)
-      setMessageDialogType('error')
+      setMessageDialogType(MessageDialogType.Error)
     }
     setIsMessageDialogOpened(true)
     setExchangeBtnDisabled(false)
@@ -160,6 +160,7 @@ export default function Home() {
         />
         <LinkDialog
           address={rewardInfo.spellguru_address}
+          userInfo={userInfo}
           open={isLinkDialogOpened}
           onClose={() => {setIsLinkDialogOpened(false)}}
           onConfirm={handleLinkAddres}
