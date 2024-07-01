@@ -46,7 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/favi.png" />
       </head>
       <body className={chirp.className} style={{overflowY: 'scroll'}}>
         <div
