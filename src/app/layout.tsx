@@ -46,38 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favi.png" />
-        <meta
-          property="og:title"
-          content="SpellGuru is a decentralized AI training data network"
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://spellguru.ai/" />
-        <meta
-          property="og:description"
-          content="Join SpellGuru waitlist event to win free $SGAI airdrop."
-        />
-
-        <meta
-          property="og:image"
-          content="https://spellguru.azureedge.net/spellbox.png"
-        />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@GuruSpell" />
-        <meta
-          name="twitter:title"
-          content="SpellGuru is a decentralized AI training data network
-"
-        />
-        <meta
-          name="twitter:image"
-          content="https://spellguru.azureedge.net/spellbox.png"
-        />
-        <meta name="twitter:creator" content="@GuruSpell" />
-        <meta
-          name="twitter:description"
-          content="Join SpellGuru waitlist event to win free $SGAI airdrop."
-        />
+        <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={chirp.className} style={{overflowY: 'scroll'}}>
         <div
