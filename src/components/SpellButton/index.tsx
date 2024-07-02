@@ -19,7 +19,6 @@ export const SpellButton: FC<Props> = ({ href, label, icon, isSmScreen }) => {
             width: 120,
             py: '2px',
             px: '2px',
-            my: '4px',
             border: '2px solid #F8E256',
             color: '#fff',
             borderRadius: '20px',
