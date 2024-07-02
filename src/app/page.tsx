@@ -97,7 +97,7 @@ export default function Home() {
           <p className={contentDefaultClassNames.join(' ')}>Now you can claim the rewards you received in the Genesis event.</p>
           <p className={[...contentDefaultClassNames].join(' ')}>
             <span className="leading-[30px] md:leading-[26px] pr-[10px]">Connect your SpellGuru wallet address</span>
-            <Button disabled={!userInfo || !!rewardInfo.spellguru_address} style={linkButtonStyle} variant="contained" onClick={() => {setIsLinkDialogOpened(true)}}>Link</Button>
+            <Button disabled={!userInfo} style={linkButtonStyle} variant="contained" onClick={() => {setIsLinkDialogOpened(true)}}>Link</Button>
           </p>                       
           <p className={contentDefaultClassNames.join(' ')}>
             <span className="leading-[30px] md:leading-[26px] pr-[10px]">If you have not yet created a SpellGuru wallet, please register and create one by</span>
