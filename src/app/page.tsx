@@ -20,6 +20,8 @@ import { linkAddress, exchangeReward } from '@/api/userApi'
 import { ExchangeType } from '@/interface/apiInterface/exchange'
 import Link from 'next/link'
 import { NavBar } from '@/components/NavBar'
+import {SpellButton} from '@/components/SpellButton'
+import { Box } from '@mui/material'
 
 const iconClassNames = ['mr-[16px]', 'text-[24px]', 'md:mr-[30px]', 'md:text-[25px]', 'cursor-pointer'];
 const contentDefaultClassNames = ['text-[16px]', 'leading-[19px]', 'md:text-[14px]', 'md:leading-[16px]', 'mb-[10px]', 'font-normal', 'text-[#cccccc]'];
@@ -30,6 +32,7 @@ export default function Home() {
   const [isMessageDialogOpened, setIsMessageDialogOpened] = useState(false)
   const [messageDialogType, setMessageDialogType] = useState<MessageDialogType>(MessageDialogType.Success)
   const [exchangeBtnDisabled, setExchangeBtnDisabled] = useState(false)
+  const [exchangeType, setExchangeType] = useState<ExchangeType>(ExchangeType.TYPE_UNKNOWN);
 
   const { userInfo, rewardInfo, updateUserInfo, updateRewardInfo } = useUserInfoContext()
 
@@ -63,6 +66,7 @@ export default function Home() {
 
   const handleExchangeReward = async (exchangeType: ExchangeType) => {
     setExchangeBtnDisabled(true)
+    setExchangeType(exchangeType)
     try {
       const res = await exchangeReward(exchangeType)
       if (res?.success) {
@@ -93,28 +97,44 @@ export default function Home() {
           <p className={contentDefaultClassNames.join(' ')}>Now you can claim the rewards you received in the Genesis event.</p>
           <p className={[...contentDefaultClassNames].join(' ')}>
             <span className="leading-[30px] md:leading-[26px] pr-[10px]">Connect your SpellGuru wallet address</span>
-            <Button style={linkButtonStyle} variant="contained" onClick={() => {setIsLinkDialogOpened(true)}}>Link</Button>
+            <Button disabled={!!rewardInfo.spellguru_address} style={linkButtonStyle} variant="contained" onClick={() => {setIsLinkDialogOpened(true)}}>Link</Button>
           </p>                       
-          <p className={contentDefaultClassNames.join(' ')}>If you have not yet created a SpellGuru wallet, please register an account and create one at<Link href="https://alienx.spellguru.ai" target="_blank">alienx.spellguru.ai</Link>.</p>
+          <p className={contentDefaultClassNames.join(' ')}>
+            <span className="mr-[4px]">If you have not yet created a SpellGuru wallet, please register and create one by</span>
+            <SpellButton
+              icon={
+                <Box sx={{ width: 20, height: 20 }}>
+                  <Image
+                    src={'/chrome.png'}
+                    alt='chrome'
+                    width={20}
+                    height={20}/>
+                </Box>
+              }
+              isSmScreen={isSmScreen}
+              label='Chrome'
+              href='https://chromewebstore.google.com/detail/spellguru/jalkgjpnhfbmpcllnmonlikemjhfeiag'
+            />
+          </p>
           <p className={contentDefaultClassNames.join(' ')}>The rewards and benefits you earned in the Genesis event are listed below for you to review and exchange:</p>
         </div>
         <div>
           <ExchangeCard
-            type="vSGAI"
+            type={ExchangeType.TYPE_VSGAI}
             title={`GAI ${rewardInfo.gai} + Battle ${rewardInfo.pk_times} `}
             value={(userInfo?.dynamic?.sgai || 0) / 100}
             exchangeFn={() => {handleExchangeReward(ExchangeType.TYPE_VSGAI)}}
             disabled={exchangeBtnDisabled || !userInfo?.dynamic?.sgai}>
           </ExchangeCard>
           <ExchangeCard
-            type="SpellSlot"
+            type={ExchangeType.TYPE_SPELLSLOT}
             title={`Pet phrase ${rewardInfo.phrases_slot_total} + Strategy ${rewardInfo.experience_slot_total}`}
             value={userInfo?.dynamic?.sgslot || 0}
             exchangeFn={() => {handleExchangeReward(ExchangeType.TYPE_SPELLSLOT)}}
             disabled={exchangeBtnDisabled || !userInfo?.dynamic?.sgslot}>        
           </ExchangeCard>
           <ExchangeCard
-            type="S-AIX"
+            type={ExchangeType.TYPE_SAIX}
             title="AIX xxx"
             value={0}
             disabled={true}
@@ -124,6 +144,7 @@ export default function Home() {
         <MessageDialog
           open={isMessageDialogOpened}
           type={messageDialogType}
+          exchangeType={exchangeType}
           onClose={() => {setIsMessageDialogOpened(false)}}
         />
         <LinkDialog

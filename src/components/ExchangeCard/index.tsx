@@ -2,27 +2,43 @@ import React from 'react'
 import Image from 'next/image'
 import Button from '@mui/material/Button'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { ExchangeType } from '@/interface/apiInterface/exchange'
 
-const ICON_MAP = {
-  'vSGAI': {
+interface ExchangeOptionProps {
+  src: string;
+  width: number,
+  height: number,
+  className: string,
+  label: string,
+}
+
+type OptionMap = {
+  [key in ExchangeType]?: ExchangeOptionProps
+}
+
+const ICON_MAP: OptionMap = {
+  [ExchangeType.TYPE_VSGAI]: {
     src: '/vSGAI.png',
     width: 54,
     height: 59,
     className: 'mb-[16px] md:mb-[10px]',
+    label: 'vSGAI',
   },
-  'SpellSlot': {
+  [ExchangeType.TYPE_SPELLSLOT]: {
     src: '/SpellSlot.png',
     width: 77,
     height: 45,
     className: 'mb-[16px] md:mb-[12px]',
+    label: 'SpellSlot',
   },
-  'S-AIX': {
+  [ExchangeType.TYPE_SAIX]: {
     src: '/S-AIX.png',
     width: 82,
     height: 33,
     className: 'mb-[20px] md:mb-[15px]',
-  }, 
-}
+    label: 'S-AIX',
+  },
+};
 
 export const ExchangeCard = ({
   type,
@@ -31,15 +47,17 @@ export const ExchangeCard = ({
   disabled,
   exchangeFn,
 } : {
-  type: 'vSGAI' | 'SpellSlot' | 'S-AIX',
+  type: ExchangeType,
   value: number,
   title: string,
   disabled?: boolean,
   exchangeFn: Function
 }) => {
-  const { src, width, height, className } = ICON_MAP[type]
+  const { src, width, height, className, label } = ICON_MAP[type] || {
+    src: '', width: 0, height: 0, className: '', label: ''
+  }
   const isSmScreen = useMediaQuery('(min-width:640px)')
-  const buttonText = ['S-AIX'].includes(type) ? 'Coming soon' : 'Exchange'
+  const buttonText = [ExchangeType.TYPE_SAIX].includes(type) ? 'Coming soon' : 'Exchange'
   const buttonStyle = isSmScreen
     ? {width: '180px', height: '56px', fontWeight: 'bold', fontSize: '20px'}
     : {width: '50vw', height: '36px', fontWeight: 'normal', fontSize: '16px'}
@@ -50,11 +68,11 @@ export const ExchangeCard = ({
         src={src}
         width={width}
         height={height}
-        alt={type}
+        alt={label}
         className={className}
       ></Image>
       <span className="text-[16px] leading-[19px] font-normal text-white">
-        {type}
+        {label}
       </span>
       <span className="text-[16px] leading-[19px] mb-[10px] font-bold text-[#F8E256]">
         {value}

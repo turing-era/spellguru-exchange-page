@@ -1,20 +1,31 @@
 import React from "react"
 import Image from "next/image"
 import { Button, Modal } from "@mui/material"
+import { ExchangeType } from "@/interface/apiInterface/exchange"
 
 export enum MessageDialogType {
   Success = 'success',
   Error = 'error'
 }
+const requiredLevelMap = {
+  [ExchangeType.TYPE_VSGAI]: 'L2',
+  [ExchangeType.TYPE_SPELLSLOT]: 'L3/L4',
+  // 未支持，暂定 L3/L4
+  [ExchangeType.TYPE_SAIX]: 'L3/L4',
+  [ExchangeType.TYPE_UNKNOWN]: '',
+  [ExchangeType.UNRECOGNIZED]: ''
+}
 
 export const MessageDialog: React.FC<{
   open: boolean
   type: MessageDialogType
+  exchangeType: ExchangeType
   onClose: () => void}>
-  = ({ open, type, onClose }) => {
+  = ({ open, type, exchangeType, onClose }) => {
     const title = type === 'success' ? 'Exchange successful' : 'Exchange failed';
+    const requiredLevel = requiredLevelMap[exchangeType];
     const message = type === 'success'
-      ? 'Exchange successful. Please go to the product to check.\n Note that L3/L4 level is required to use it.'
+      ? `Exchange successful. Please go to the product to check.\n Note that ${requiredLevel} level is required to use it.`
       : 'Exchange failed. Please exchange again.';
     const iconSrc = type === 'success' ? '/success.svg' : '/error.svg';
     
