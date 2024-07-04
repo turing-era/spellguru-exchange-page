@@ -20,6 +20,17 @@ const defaultRewardInfo: PreviewSpellguruRewardRsp = {
   pk_times: 0,
   phrases_slot_total: 0,
   experience_slot_total: 0,
+  exchanged_experience_slot: 0,
+  exchanged_gai_amount: 0,
+  exchanged_phrases_slot: 0,
+  exchanged_experience_slot_ts: 0,
+  exchanged_gai_ts: 0,
+  exchanged_phrases_slot_ts: 0,
+  exchanged_pk_times: 0,
+  exchanged_pk_ts: 0,
+  exchanged_saix: 0,
+  exchanged_spell_slot: 0,
+  exchanged_vsgai: 0,
 }
 
 const UserInfoContext = createContext<UserInfoProviderType>({
