@@ -20,6 +20,7 @@
     "@vercel/speed-insights": "^1.0.10",
     "axios": "^1.6.2",
     "date-fns": "^3.6.0",
+    "dayjs": "^1.11.11",
     "encoding": "^0.1.13",
     "ethers": "^6.12.1",
     "firebase": "^10.7.1",

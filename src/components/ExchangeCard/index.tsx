@@ -44,23 +44,25 @@ export const ExchangeCard = ({
   type,
   value,
   title,
+  exchangedRecord,
   disabled,
   exchangeFn,
 } : {
   type: ExchangeType,
   value: number,
   title: string,
+  exchangedRecord: string;
   disabled?: boolean,
   exchangeFn: Function
 }) => {
   const { src, width, height, className, label } = ICON_MAP[type] || {
     src: '', width: 0, height: 0, className: '', label: ''
   }
-  const isSmScreen = useMediaQuery('(min-width:640px)')
+  const isSmScreen = useMediaQuery('(min-width:768px)')
   const buttonText = [ExchangeType.TYPE_SAIX].includes(type) ? 'Coming soon' : 'Exchange'
   const buttonStyle = isSmScreen
-    ? {width: '180px', height: '56px', fontWeight: 'bold', fontSize: '20px'}
-    : {width: '50vw', height: '36px', fontWeight: 'normal', fontSize: '16px'}
+    ? {width: '168px', height: '56px', fontWeight: 'bold', fontSize: '20px', flexShrink: 0}
+    : {width: '50vw', height: '36px', fontWeight: 'normal', fontSize: '16px', flexShrink: 0}
 
   return <div className="flex flex-row relative mb-[20px] md:mb-[10px]">
     <div className="w-[30vw] h-[156px] md:h-[134px] md:w-[158px] bg-[#1A1A1A] flex flex-col items-center justify-end rounded-[16px]">
@@ -88,8 +90,14 @@ export const ExchangeCard = ({
         ></Image>
       </div>
     </div>
-    <div className="flex flex-col w-[60vw] h-[156px] items-center justify-start md:h-[134px] px-[20px] md:w-[496px] md:flex-row md:justify-between md:pl-[46px] bg-[#1A1A1A] rounded-[16px]">
-      <span className="font-normal mb-[30px] mt-[50px] text-[16px] leading-[19px] md:font-bold md:my-0">{title}</span>
+    <div className="flex flex-col w-[60vw] h-[156px] items-center justify-center md:h-[134px] px-[20px] md:w-[496px] md:flex-row md:justify-between md:pl-[46px] bg-[#1A1A1A] rounded-[16px]">
+      <div className="font-normal text-[16px] mr-[8px] mb-[8px] leading-[19px] md:font-bold md:m-0">
+        {
+          exchangedRecord
+            ? <p className="whitespace-pre-line text-[#cccccc]">{exchangedRecord}</p>
+            : <p>{title}</p>
+        }
+      </div>
       <Button style={buttonStyle} variant="contained" disabled={disabled} onClick={() => exchangeFn()}>{buttonText}</Button>
     </div>
   </div>;

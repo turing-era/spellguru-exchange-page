@@ -55,6 +55,7 @@ export const UserInfoProvider = ({
   const updateRewardInfo = async () => {
     try {
       const res = await previewReward()
+      console.log('setRewardInfo', res)
       res && setRewardInfo(res)
     } catch (e) {
       console.log('previewReward error', e)

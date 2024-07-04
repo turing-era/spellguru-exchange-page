@@ -22,6 +22,7 @@ import Link from 'next/link'
 import { NavBar } from '@/components/NavBar'
 import {SpellButton} from '@/components/SpellButton'
 import { Box } from '@mui/material'
+import dayjs from 'dayjs'
 
 const iconClassNames = ['mr-[16px]', 'text-[24px]', 'md:mr-[30px]', 'md:text-[25px]', 'cursor-pointer'];
 const contentDefaultClassNames = ['text-[16px]', 'leading-[19px]', 'md:text-[14px]', 'md:leading-[16px]', 'mb-[10px]', 'font-normal', 'text-[#cccccc]'];
@@ -39,7 +40,7 @@ export default function Home() {
   const isSmScreen = useMediaQuery('(min-width:640px)')
   const linkButtonStyle = isSmScreen
     ? {height: '26px', width: '68px', fontSize: '14px', borderRadius: '13px'}
-    : {height: '30px', width: '76px' , fontSize: '14px', borderRadius: '15px'};
+    : { height: '30px', width: '76px', fontSize: '14px', borderRadius: '15px'};
 
   useListenOnChainSwitch()
 
@@ -123,14 +124,22 @@ export default function Home() {
             type={ExchangeType.TYPE_VSGAI}
             title={`GAI ${rewardInfo.gai} + Battle ${rewardInfo.pk_times} `}
             value={(userInfo?.dynamic?.sgai || 0) / 100}
+            exchangedRecord={rewardInfo.exchanged_gai_ts
+              ? `${dayjs(rewardInfo.exchanged_gai_ts * 1000).format('YYYY-MM-DD')}\n${rewardInfo.exchanged_vsgai / 100} vSGAI exhcanged ${rewardInfo.exchanged_gai_amount} GAI and ${rewardInfo.exchanged_pk_times} Battles`
+              : ``}
             exchangeFn={() => {handleExchangeReward(ExchangeType.TYPE_VSGAI)}}
             disabled={exchangeBtnDisabled || !userInfo?.dynamic?.sgai}>
           </ExchangeCard>
           <ExchangeCard
             type={ExchangeType.TYPE_SPELLSLOT}
-            title={`Pet phrase ${rewardInfo.phrases_slot_total} + Strategy ${rewardInfo.experience_slot_total}`}
+            title={`Catchphrase ${rewardInfo.phrases_slot_total} + Strategy ${rewardInfo.experience_slot_total}`}
             value={userInfo?.dynamic?.sgslot || 0}
-            exchangeFn={() => {handleExchangeReward(ExchangeType.TYPE_SPELLSLOT)}}
+            exchangeFn={() => { handleExchangeReward(ExchangeType.TYPE_SPELLSLOT) }}
+            exchangedRecord={
+              rewardInfo.exchanged_phrases_slot_ts
+                ? `${dayjs(rewardInfo.exchanged_phrases_slot_ts * 1000).format('YYYY-MM-DD')}\n${rewardInfo.exchanged_spell_slot} SpellSlot exhcanged ${rewardInfo.exchanged_phrases_slot} Catchphrases and ${rewardInfo.exchanged_experience_slot} Strategies`
+                : ''
+            }
             disabled={exchangeBtnDisabled || !userInfo?.dynamic?.sgslot}>        
           </ExchangeCard>
           <ExchangeCard
@@ -138,6 +147,7 @@ export default function Home() {
             title="AIX xxx"
             value={userInfo?.dynamic?.saix || 0}
             disabled={true}
+            exchangedRecord=''
             exchangeFn={() => {}}>
           </ExchangeCard>
         </div>

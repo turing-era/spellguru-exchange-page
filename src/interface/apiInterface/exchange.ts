@@ -18,6 +18,28 @@ export interface PreviewSpellguruRewardRsp {
   phrases_slot_total: number;
   /** SpellSlot ----> 对战策略槽总数 */
   experience_slot_total: number;
+  /** 已兑换的GAI数量 */
+  exchanged_gai_amount: number;
+  /** 已兑换的GAI时间 */
+  exchanged_gai_ts: number;
+  /** 已兑换的对战次数 */
+  exchanged_pk_times: number;
+  /** 已兑换的对战次数时间 */
+  exchanged_pk_ts: number;
+  /** 已兑换的口头禅槽 */
+  exchanged_phrases_slot: number;
+  /** 已兑换的口头禅槽时间 */
+  exchanged_phrases_slot_ts: number;
+  /** 已兑换的对战策略槽 */
+  exchanged_experience_slot: number;
+  /** 已兑换的对战策略槽时间 */
+  exchanged_experience_slot_ts: number;
+  /** 已兑换的原始vSGAI数量 */
+  exchanged_vsgai: number;
+  /** 已兑换的原始SpellSlot数量 */
+  exchanged_spell_slot: number;
+  /** 已兑换的原始SAIX数量 -- coming soon */
+  exchanged_saix: number;
 }
 
 // 兑换奖励接口
