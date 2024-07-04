@@ -4,6 +4,8 @@ export interface LinkSpellguruWalletReq {
 }
 export interface LinkSpellguruWalletRsp {
   success: boolean;
+  /** 错误信息 */
+  error_msg: string;
 }
 
 // 预览奖励接口

@@ -57,7 +57,7 @@ export default function Home() {
         updateRewardInfo()
         setIsLinkDialogOpened(false)
       } else {
-        toast.error("Link wallet failed, please try again later.")
+        toast.error(res?.error_msg || "Link wallet failed, please try again later.")
       }
     } catch(error) {
       console.error('linkAddress error', error)
