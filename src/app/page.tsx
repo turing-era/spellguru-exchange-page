@@ -136,7 +136,7 @@ export default function Home() {
           <ExchangeCard
             type={ExchangeType.TYPE_SAIX}
             title="AIX xxx"
-            value={0}
+            value={userInfo?.dynamic?.saix || 0}
             disabled={true}
             exchangeFn={() => {}}>
           </ExchangeCard>
