@@ -128,7 +128,7 @@ export default function Home() {
               ? `${dayjs(rewardInfo.exchanged_gai_ts * 1000).format('YYYY-MM-DD')}\n${rewardInfo.exchanged_vsgai / 100} vSGAI exhcanged ${rewardInfo.exchanged_gai_amount} GAI and ${rewardInfo.exchanged_pk_times} Battles`
               : ``}
             exchangeFn={() => {handleExchangeReward(ExchangeType.TYPE_VSGAI)}}
-            disabled={exchangeBtnDisabled || !userInfo?.dynamic?.sgai}>
+            disabled={exchangeBtnDisabled || !userInfo?.dynamic?.sgai || !rewardInfo.spellguru_address}>
           </ExchangeCard>
           <ExchangeCard
             type={ExchangeType.TYPE_SPELLSLOT}
@@ -140,7 +140,7 @@ export default function Home() {
                 ? `${dayjs(rewardInfo.exchanged_phrases_slot_ts * 1000).format('YYYY-MM-DD')}\n${rewardInfo.exchanged_spell_slot} SpellSlot exhcanged ${rewardInfo.exchanged_phrases_slot} Catchphrases and ${rewardInfo.exchanged_experience_slot} Strategies`
                 : ''
             }
-            disabled={exchangeBtnDisabled || !userInfo?.dynamic?.sgslot}>        
+            disabled={exchangeBtnDisabled || !userInfo?.dynamic?.sgslot || !rewardInfo.spellguru_address}>        
           </ExchangeCard>
           <ExchangeCard
             type={ExchangeType.TYPE_SAIX}
